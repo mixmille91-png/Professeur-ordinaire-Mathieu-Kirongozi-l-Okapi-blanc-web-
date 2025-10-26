@@ -1,706 +1,144 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professeur Mathieu Kirongozi - Recteur UNIKIS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:ital@0;1&family=Montserrat:wght@300;400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --playfair: 'Playfair Display', serif;
-            --lora: 'Lora', serif;
-            --montserrat: 'Montserrat', sans-serif;
-            --open-sans: 'Open Sans', sans-serif;
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #f8f9fa;
-            --dark: #2c3e50;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--open-sans);
-            line-height: 1.6;
-            color: #333;
-            background-color: var(--light);
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        #navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        #navbar.scrolled {
-            padding: 0.5rem 0;
-            background: rgba(255, 255, 255, 0.98);
-        }
-
-        #navbar ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        #navbar li {
-            margin: 0 1rem;
-        }
-
-        #navbar a {
-            font-family: var(--montserrat);
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-            padding: 0.5rem 0;
-            display: block;
-        }
-
-        #navbar a:hover,
-        #navbar a.active {
-            color: var(--secondary);
-        }
-
-        /* Sections */
-        section {
-            min-height: 100vh;
-            padding: 5rem 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Section Accueil */
-        #accueil {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            color: white;
-            text-align: center;
-        }
-
-        .background-zoom {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%232c3e50"/><text x="50" y="50" font-family="Arial" font-size="10" fill="%233498db" text-anchor="middle" dominant-baseline="middle">Image de fond</text></svg>');
-            background-size: cover;
-            background-position: center;
-            animation: zoomEffect 20s infinite alternate;
-            z-index: -1;
-        }
-
-        @keyframes zoomEffect {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        #accueil .content {
-            max-width: 800px;
-            padding: 2rem;
-            background: rgba(0,0,0,0.5);
-            border-radius: 10px;
-        }
-
-        #accueil h1 {
-            font-family: var(--playfair);
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        #accueil p {
-            font-family: var(--lora);
-            font-size: 1.5rem;
-            font-style: italic;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background: var(--secondary);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-family: var(--montserrat);
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #2980b9;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* Sections de contenu */
-        .content-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .content-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .content-section h2 {
-            font-family: var(--playfair);
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--dark);
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .content-section h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .content-section p {
-            font-family: var(--open-sans);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        /* Section Biographie */
-        #biographie {
-            background: white;
-        }
-
-        .bio-content {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .bio-image {
-            flex: 1;
-            max-width: 300px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .bio-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .bio-text {
-            flex: 2;
-        }
-
-        /* Section Discours */
-        #discours {
-            background: var(--light);
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
-            margin-bottom: 2rem;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Section Agenda */
-        #agenda {
-            background: white;
-        }
-
-        .agenda-item {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .agenda-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .agenda-item h3 {
-            font-family: var(--montserrat);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .agenda-item .date {
-            font-family: var(--montserrat);
-            color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .agenda-item a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .agenda-item a:hover {
-            color: var(--accent);
-            text-decoration: underline;
-        }
-
-        /* Section Vision */
-        #vision {
-            background: var(--light);
-        }
-
-        .vision-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .vision-item {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .vision-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .vision-item h3 {
-            font-family: var(--montserrat);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .vision-item i {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        /* Section Déclarations */
-        #declarations {
-            background: white;
-        }
-
-        .declaration-item {
-            border-left: 4px solid var(--secondary);
-            padding-left: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .declaration-item h3 {
-            font-family: var(--montserrat);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .declaration-item .date {
-            font-family: var(--montserrat);
-            color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Section Galerie */
-        #galerie {
-            background: var(--light);
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            cursor: pointer;
-            aspect-ratio: 1;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-item .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .gallery-item:hover .overlay {
-            opacity: 1;
-        }
-
-        .gallery-item .overlay i {
-            color: white;
-            font-size: 2rem;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-img {
-            max-width: 90%;
-            max-height: 80%;
-            object-fit: contain;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 2001;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            padding: 1rem;
-            z-index: 2001;
-        }
-
-        .lightbox-prev {
-            left: 30px;
-        }
-
-        .lightbox-next {
-            right: 30px;
-        }
-
-        .lightbox-caption {
-            color: white;
-            margin-top: 1rem;
-            font-family: var(--montserrat);
-            text-align: center;
-        }
-
-        /* Section Contact */
-        #contact {
-            background: white;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-family: var(--montserrat);
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: var(--open-sans);
-            font-size: 1rem;
-            transition: border 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--secondary);
-            outline: none;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .submit-btn {
-            background: var(--secondary);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: var(--montserrat);
-            font-size: 1rem;
-            transition: background 0.3s ease;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background: #2980b9;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-
-        .language-switcher {
-            margin-top: 1rem;
-        }
-
-        .language-switcher a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            #navbar ul {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            #navbar li {
-                margin: 0.3rem 0;
-            }
-            
-            #accueil h1 {
-                font-size: 2.5rem;
-            }
-            
-            #accueil p {
-                font-size: 1.2rem;
-            }
-            
-            section {
-                padding: 3rem 0;
-            }
-            
-            .bio-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .bio-image {
-                max-width: 200px;
-            }
-            
-            .content-section h2 {
-                font-size: 2rem;
-            }
-            
-            .lightbox-nav {
-                font-size: 20px;
-                padding: 0.5rem;
-            }
-            
-            .lightbox-prev {
-                left: 10px;
-            }
-            
-            .lightbox-next {
-                right: 10px;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .fade-in {
-            animation: fadeIn 1s ease;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professeur Mathieu Kirongozi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav id="navbar">
-        <ul>
-            <li><a href="#accueil" class="active">Accueil</a></li>
-            <li><a href="#biographie">Biographie</a></li>
-            <li><a href="#discours">Discours & Vidéos</a></li>
-            <li><a href="#agenda">Agenda Scientifique</a></li>
-            <li><a href="#vision">Vision Stratégique</a></li>
-            <li><a href="#declarations">Déclarations</a></li>
-            <li><a href="#galerie">Galerie</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="index-en.html">English</a></li>
-        </ul>
+  <header>
+    <div class="logo">Prof. Kirongozi</div>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#bio">Biographie</a></li>
+        <li><a href="#activites">Activités</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="menu-toggle" aria-label="Menu mobile">☰</div>
     </nav>
+  </header>
 
-    <!-- Section Accueil -->
-    <section id="accueil">
-        <div class="background-zoom"></div>
-        <div class="content fade-in">
-            <h1>Professeur Mathieu Kirongozi</h1>
-            <p>Recteur de l'Université de Kisangani (UNIKIS)</p>
-            <a href="#biographie" class="btn">Découvrir son parcours</a>
-        </div>
+  <main>
+    <section id="accueil" class="hero">
+      <div class="hero-content">
+        <h1>Professeur Mathieu Kirongozi Bometa</h1>
+        <p>Recteur de l'Université de Kisangani, chercheur en sciences politiques, acteur engagé pour la réforme de l'enseignement supérieur en RDC.</p>
+        <blockquote>« L'université doit être le cœur battant du progrès intellectuel et social. »</blockquote>
+      </div>
     </section>
 
-    <!-- Section Biographie -->
-    <section id="biographie" class="content-section">
-        <div class="container">
-            <h2>Biographie</h2>
-            <div class="bio-content">
-                <div class="bio-image">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='400' viewBox='0 0 300 400'><rect width='300' height='400' fill='%23f0f0f0'/><text x='150' y='200' font-family='Arial' font-size='16' fill='%23333' text-anchor='middle' dominant-baseline='middle'>Photo du Professeur</text></svg>" alt="Professeur Mathieu Kirongozi">
-                </div>
-                <div class="bio-text">
-                    <p>Le Professeur Mathieu Kirongozi est une figure éminente du monde académique congolais. Actuellement Recteur de l'Université de Kisangani (UNIKIS), il œuvre inlassablement pour le développement de l'enseignement supérieur et de la recherche scientifique en République Démocratique du Congo.</p>
-                    <p>Avec un parcours académique remarquable et une vision claire pour l'avenir de l'université, le Professeur Kirongozi s'engage à moderniser l'institution tout en préservant ses valeurs fondamentales d'excellence et d'intégrité.</p>
-                    <p>Sous sa direction, l'UNIKIS a entrepris d'importantes réformes visant à améliorer la qualité de l'enseignement, à renforcer la recherche scientifique et à accroître la visibilité internationale de l'université.</p>
-                </div>
-            </div>
-        </div>
+    <section id="bio" class="content-section">
+      <div class="container">
+        <h2>Biographie</h2>
+        <p>Mathieu Kirongozi Bometa est professeur ordinaire en sciences politiques, diplômé de l'Université de Kinshasa. Il a consacré sa carrière à l'enseignement, à la recherche et à la réforme de l'enseignement supérieur en RDC.</p>
+        <p>En juillet 2025, il est nommé recteur de l'Université de Kisangani, où il initie une série de réformes axées sur la transparence, la numérisation et la valorisation de la recherche scientifique.</p>
+      </div>
     </section>
 
-    <!-- Section Discours & Vidéos -->
-    <section id="discours" class="content-section">
-        <div class="container">
-            <h2>Discours & Vidéos</h2>
-            <div class="video-container">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fboyomapuissance%2Fvideos%2F1133476048679539%2F&show_text=0&width=560" width="100%" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowFullScreen="true"></iframe>
-            </div>
-            <p>Extrait vidéo d'un discours du professeur Kirongozi lors d'un événement académique à Kisangani. Dans cette allocution, le Recteur partage sa vision pour l'université et souligne l'importance de l'innovation dans l'enseignement supérieur.</p>
+    <section id="activites" class="content-section">
+      <div class="container">
+        <h2>Activités</h2>
+        <div class="cards-grid">
+          <div class="card">
+            <h3>Présidence</h3>
+            <p>Président de la Conférence des chefs d'établissement de la Tshopo</p>
+          </div>
+          <div class="card">
+            <h3>Conférences</h3>
+            <p>Conférencier invité dans plusieurs universités africaines</p>
+          </div>
+          <div class="card">
+            <h3>Numérisation</h3>
+            <p>Promoteur de la numérisation des services académiques à l'UNIKIS</p>
+          </div>
+          <div class="card">
+            <h3>Consultance</h3>
+            <p>Consultant en gouvernance universitaire</p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Section Agenda Scientifique -->
-    <section id="agenda" class="content-section">
-        <div class="container">
-            <h2>Agenda Scientifique et Académique</h2>
-            <div class="agenda-item">
-                <h3>Mission à Kinshasa</h3>
-                <div class="date">Septembre 2023</div>
-                <p>Le Professeur Kirongozi a effectué une mission importante à Kinshasa dans le cadre de la collaboration entre l'UNIKIS et le ministère de l'ESU-RSIT. Cette visite a permis de renforcer les partenariats stratégiques et de discuter des projets de développement de l'enseignement supérieur.</p>
-                <a href="https://singamwambe.info/unikis-le-professeur-mathieu-kirongozi-met-a-profit-son-sejour-a-kinshasa/" target="_blank">Lire l'article complet sur Singamwambe.info</a>
-            </div>
+    <section id="publications" class="content-section">
+      <div class="container">
+        <h2>Publications</h2>
+        <ul>
+          <li><strong>« Réformes et Résistances »</strong> – Essai sur la transformation de l'enseignement supérieur</li>
+          <li><strong>« L'État en mutation »</strong> – Analyse des institutions politiques congolaises</li>
+          <li><a href="https://kivumorningpost.com/2025/07/17/unikis-le-professeur-kirongozi-bometa-nomme-recteur/" target="_blank">Article sur sa nomination</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="galerie" class="content-section">
+      <div class="container">
+        <h2>Galerie</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item" data-src="https://source.unsplash.com/random/800x600/?university,congo">
+            <img src="https://source.unsplash.com/random/300x200/?university,congo" alt="Université de Kisangani">
+          </div>
+          <div class="gallery-item" data-src="https://source.unsplash.com/random/800x600/?graduation">
+            <img src="https://source.unsplash.com/random/300x200/?graduation" alt="Cérémonie de graduation">
+          </div>
+          <div class="gallery-item" data-src="https://source.unsplash.com/random/800x600/?conference">
+            <img src="https://source.unsplash.com/random/300x200/?conference" alt="Conférence académique">
+          </div>
+          <div class="gallery-item" data-src="https://source.unsplash.com/random/800x600/?library">
+            <img src="https://source.unsplash.com/random/300x200/?library" alt="Bibliothèque universitaire">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="content-section">
+      <div class="container">
+        <h2>Contact</h2>
+        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+          <input type="hidden" name="access_key" value="e032e789-7a9f-4b52-9ca0-91e838645ab9">
+          <input type="hidden" name="subject" value="Nouveau message du site Prof. Kirongozi">
+          
+          <div class="form-group">
+            <label for="name">Nom complet</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn-primary">Envoyer le message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <span class="lightbox-prev">&#10094;</span>
+    <span class="lightbox-next">&#10095;</span>
+    <div class="lightbox-content">
+      <img src="" alt="">
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Professeur Mathieu Kirongozi. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+      </html>
